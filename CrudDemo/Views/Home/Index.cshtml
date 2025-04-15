@@ -1,0 +1,65 @@
+﻿@model IEnumerable<CrudDemo.Models.ViewModels.EmployeeModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<a class="btn btn-primary" href="/addeditemployee">Add</a>
+<table class="table table-responsive" id="abc">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Image</th>
+            <th>Created Date</th>
+            <th>Actions</th> <!-- Updated to include the Delete button -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+                <td>@item.Department</td>
+                <td><img src="~/Images/@item.Image" height="100" width="100" /></td>
+                <td>@item.CreatedDate</td>
+                <td>
+                    <a class="btn btn-primary" href="/addeditemployee?EmpId=@item.EmpId">Edit</a>
+                    <button class="btn btn-danger" onclick="deleteEmployee(@item.EmpId)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="~/js/custom/employee.js"></script>
+   
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // Delete Employee Function
+           
+
+
+        // DataTables Initialization
+        $('#abc').DataTable({
+            destroy: true,
+            scrollX: true,
+            sort: true,
+            processing: true,
+            serverSide: false,
+            filter: true,
+            orderMulti: false,
+            order: [],
+            responsive: true,
+            ordering: false,
+            lengthChange: true,
+            paging: true,
+            paginate: true,
+            pagingType: "full_numbers",
+            pageLength: 10
+        });
+    </script>
+}

@@ -1,0 +1,61 @@
+﻿@model CrudDemo.Models.ViewModels.EmployeeModel
+@{
+    ViewData["Title"] = "add edit employee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id="frmEmployee">
+    <input type="hidden" id="EmpId" name="EmpId" value="@Model.EmpId" />
+    <div class="row">
+        <div class="col-md-12">
+            <label>Name</label>
+            <input type="text" id="Name" name="Name" value="@Model.Name" class="form-control"/>
+        </div>
+        <div class="col-md-12">
+            <label>Email</label>
+            <input type="email" id="Email" name="Email" value="@Model.Email" class="form-control" />
+        </div>
+        <div class="col-md-12">
+            <label>Image</label>
+            <input type="file" id="Image"  name="Image" class="form-control" onchange="previewImage()" />
+
+            @if (Model.Image != null && Model.Image != "")
+            {
+                <img id="imagePreview" src="~/Images/@Model.Image" width="100" height="100" />
+            }
+            else
+            {
+                <img id="imagePreview" style="display:none;" width="100" height="100" />
+            }
+        </div>
+        <div class="col-md-12">
+            <label>Department</label>
+            @Html.DropDownListFor(m => m.Department, ViewBag.Department as List<SelectListItem>,"Select Department",new {@class="form-control" })
+        </div>
+        <div class="col-md-12">
+            <button type="button" id="btnSave" class="btn btn-primary"> Save</button>
+        </div>
+    </div> 
+</form>
+@section Scripts{
+    <script src="~/js/custom/employee.js"></script>
+}
+
+@* <script>
+    function previewImage() {
+        var file = document.getElementById('Image').files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            var imagePreview = document.getElementById('imagePreview');
+            imagePreview.src = reader.result;
+            imagePreview.style.display = 'block';  // Show the image preview
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);  // Read the file as a data URL
+        } else {
+            document.getElementById('imagePreview').style.display = 'none';  // Hide if no file selected
+        }
+    }
+</script> *@
